@@ -81,7 +81,8 @@
          </font>
       </Button>
       <TextField fx:id="scoreField" layoutX="289.0" layoutY="235.0" />
-      <Label layoutX="289.0" layoutY="216.0" text="give score" />
-      <Button layoutX="290.0" layoutY="268.0" mnemonicParsing="false" onAction="#onGiveScore" text="Give" />
+      <Label layoutX="289.0" layoutY="216.0" text="Give Score" />
+      <Button layoutX="452.0" layoutY="235.0" mnemonicParsing="false" onAction="#onGiveScore" text="Give" />
+      <Label fx:id="errorLabel" layoutX="386.0" layoutY="260.0" text="Error label" textFill="#d71c1c" />
    </children>
 </AnchorPane>

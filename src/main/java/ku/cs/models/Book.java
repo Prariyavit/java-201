@@ -96,6 +96,10 @@ public class Book {
         this.score = score;
     }
 
+    public void giveScore(int score) {
+        this.score += score;
+    }
+
     @Override
     public String toString() {
         return "Book{" +

@@ -3,6 +3,7 @@ package ku.cs.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import ku.cs.models.Book;
@@ -10,7 +11,6 @@ import ku.cs.models.BookList;
 import ku.cs.services.BookListFileDatasource;
 import ku.cs.services.Datasource;
 import ku.cs.services.FXRouter;
-import ku.cs.services.HardcodeDatasource;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +23,8 @@ public class BooksController {
     @FXML private Label statusLabel;
     @FXML private ImageView cover;
     @FXML private ListView<String> myListView;
+    @FXML private TextField scoreField;
+    @FXML private Label errorLabel;
     private Datasource<BookList> datasource;
 
     private BookList books;
@@ -64,6 +66,29 @@ public class BooksController {
 
         Image image = loadBookImage(book);
         cover.setImage(image);
+    }
+
+    @FXML
+    public void onGiveScore() {
+        String scoreString = scoreField.getText().trim();
+        if (scoreString.equals("")) {
+            errorLabel.setText("Score is required");
+            return;
+        }
+        try {
+            int score = Integer.parseInt(scoreString);
+            if (score < 0) {
+                errorLabel.setText("Score must be a positive number");
+                return;
+            }
+            errorLabel.setText("");
+            selectedBook.giveScore(score); // Assuming you have a method in the Book class for giving scores
+            scoreField.clear();
+            datasource.writeData(books); // Write the updated data back to the file
+            showBook(selectedBook);
+        } catch (NumberFormatException e) {
+            errorLabel.setText("Score must be a number");
+        }
     }
 
     private Image loadBookImage(Book book) {
