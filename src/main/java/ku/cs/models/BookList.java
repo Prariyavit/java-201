@@ -10,19 +10,11 @@ public class BookList {
         books = new ArrayList<>();
     }
 
-    public void addBook(String id, String title, String author, int year) {
-        if (!id.isEmpty() && !title.isEmpty() && !author.isEmpty() && year != 0) {
-            books.add(new Book(id.trim(), title.trim(), author.trim(), year));
-        }
-    }
-
     public void addBook(String id, String title, String author, int year, int score) {
         if (!id.isEmpty() && !title.isEmpty() && !author.isEmpty() && year >= 0 && score >= 0) {
             books.add(new Book(id.trim(), title.trim(), author.trim(), year, score));
         }
     }
-
-
 
     public Book findByTitle(String title) {
         for (Book book : books) {
@@ -31,6 +23,23 @@ public class BookList {
             }
         }
         return null;
+    }
+
+    public Book findById(String id) {
+        for (Book book : books) {
+            if (book.isId(id)) {
+                return book;
+            }
+        }
+        return null;
+    }
+
+    public void giveScoreToId(String id, int score) {
+        for (Book book : books) {
+            if (book.isId(id)) {
+                book.setScore(score);
+            }
+        }
     }
 
     public List<String> getBookTitles() {

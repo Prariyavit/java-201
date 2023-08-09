@@ -1,5 +1,6 @@
 package ku.cs.services;
 
+import ku.cs.models.Book;
 import ku.cs.models.BookList;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -75,6 +76,18 @@ public class BookListFileDatasource implements Datasource<BookList> {
 
     @Override
     public void writeData(BookList data) {
+        String filePath = directoryName + File.separator + fileName;
+        File file = new File(filePath);
 
+        try (PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8)) {
+            for (Book book : data.getBooks()) {
+                String line = String.format("%s,%s,%s,%d,%d",
+                        book.getId(), book.getTitle(), book.getAuthor(), book.getYear(), book.getScore());
+                writer.println(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error writing data to file: " + e.getMessage(), e);
+        }
     }
+
 }

@@ -58,6 +58,14 @@ public class Book {
 
     // Getters
 
+    public String getId() {
+        return id;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -82,13 +90,20 @@ public class Book {
         return this.title.equals(title);
     }
 
+    public boolean isId(String id) { return this.id.equals(id); }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
-                ", year=" + year +
+                ", year=" + year + '\'' +
+                ", score=" + score + '\'' +
                 '}';
     }
 }
